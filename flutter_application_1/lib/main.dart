@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widgets/galery_slider.dart';
+
+import 'widgets/product_widget.dart';
+import 'widgets/top_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Test'),
     );
   }
 }
@@ -34,82 +38,60 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 156,
-              height: 254,
-              child: Column(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Container(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Stack(
-                    children: [
-                      Positioned(
-                        child: Container(
-                          color: Colors.pink[100],
-                          width: 156,
-                          height: 164,
-                        ),
-                        bottom: 0,
-                      ),
-                      Center(
-                        child: Container(
-                          child: Image.asset('assets/image/dog1.png'),
-                        ),
-                      )
-                    ],
+                  TopButton(
+                    imageName: 'assets/button/pawprint.png',
                   ),
-                  Container(
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Text(
-                                  'Progy',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                child: Text(
-                                  'Female',
-                                  style: TextStyle(color: Colors.red[500]),
-                                ),
-                                padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
-                                color: Colors.red[100],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(16, 4, 0, 0),
-                          child: Row(
-                            children: [
-                              Container(
-                                child: Text(
-                                  'German Shorth',
-                                  style: TextStyle(
-                                    fontFamily: '',
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                  TopButton(
+                    imageName: 'assets/button/profileImage.png',
                   ),
                 ],
               ),
+            ],
+          ),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              children: [
+                GalerySlider(
+                  galeryItem: [
+                    'assets/image/galery1.jpg',
+                    'assets/image/galery2.jpg',
+                    'assets/image/galery3.jpg',
+                    'assets/image/galery4.jpg',
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ProductWidget(
+                  image: 'assets/image/dog1.png',
+                  name: 'Progy',
+                  sex: 'Male',
+                  subName: 'German Shorth',
+                  backgroundColor: Colors.blue[100],
+                ),
+                ProductWidget(
+                  image: 'assets/image/cat1.png',
+                  name: 'Mui',
+                  sex: 'Female',
+                  subName: 'German Shorth',
+                  backgroundColor: Colors.red[200],
+                ),
+              ],
             ),
           ],
         ),
