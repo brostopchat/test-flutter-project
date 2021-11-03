@@ -81,8 +81,11 @@ class ProductWidget extends StatelessWidget {
                         ),
                         padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
                         decoration: BoxDecoration(
-                            color: Colors.red[100],
-                            borderRadius: BorderRadius.all(Radius.circular(7))),
+                          color: Colors.red[100],
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(7),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -96,7 +99,10 @@ class ProductWidget extends StatelessWidget {
                           opacity: 0.5,
                           child: Text(
                             subName.toString(),
-                            style: TextStyle(fontFamily: '', fontSize: 14),
+                            style: TextStyle(
+                              fontFamily: '',
+                              fontSize: 14,
+                            ),
                           ),
                         ),
                       ),
