@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/views/adoption.dart';
 
-class TopButton extends StatelessWidget {
+class CustomBackButton extends StatelessWidget {
   String? imageName;
-  TopButton({
+  CustomBackButton({
     String? imageName,
   }) {
     this.imageName = imageName;
@@ -15,11 +14,7 @@ class TopButton extends StatelessWidget {
       child: Container(
         width: 44,
         height: 44,
-        child: Container(
-          child: Image.asset(
-            imageName.toString(),
-          ),
-        ),
+        child: Image.asset(imageName.toString()),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(17),
           color: Colors.white,
@@ -34,10 +29,7 @@ class TopButton extends StatelessWidget {
         ),
       ),
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Adoption()),
-        );
+        Navigator.pop(context);
       },
     );
   }

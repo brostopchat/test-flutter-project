@@ -1,25 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/views/adoption.dart';
 
-class TopButton extends StatelessWidget {
+class LogoButton extends StatelessWidget {
   String? imageName;
-  TopButton({
+  LogoButton({
     String? imageName,
   }) {
     this.imageName = imageName;
   }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
         width: 44,
         height: 44,
-        child: Container(
-          child: Image.asset(
-            imageName.toString(),
-          ),
-        ),
+        child: Image.asset(imageName.toString()),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(17),
           color: Colors.white,
@@ -33,12 +27,6 @@ class TopButton extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Adoption()),
-        );
-      },
     );
   }
 }

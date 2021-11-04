@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/bottom_nav_bar.dart';
-import 'package:flutter_application_1/widgets/category_title.dart';
-import 'package:flutter_application_1/widgets/galery_slider.dart';
-import 'package:flutter_application_1/widgets/galery_slider_control.dart';
+import 'package:flutter_application_1/views/ui_kit.dart';
+import 'package:flutter_application_1/widgets/logo_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'widgets/product_widget.dart';
 import 'widgets/top_button.dart';
+import 'widgets/category_title.dart';
+import 'widgets/galery_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   PageController controller = PageController(
     initialPage: 0,
   );
+  int selectedIndex = 0;
 
   void onItemTapped(int index) {
     // controller.jumpToPage(index);
@@ -56,6 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
       duration: Duration(milliseconds: 200),
       curve: Curves.easeIn,
     );
+    selectedIndex = index;
+    setState(() {});
   }
 
   @override
@@ -65,16 +68,17 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 0,
         backgroundColor: Colors.white,
         title: Container(
+          color: Colors.white,
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TopButton(
+                  LogoButton(
                     imageName: 'assets/button/pawprint.png',
                   ),
                   TopButton(
-                    imageName: 'assets/button/profileImage.png',
+                    imageName: 'assets/button/profile_image.png',
                   ),
                 ],
               ),
@@ -144,6 +148,24 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Container(
+            child: Center(
+              child: GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.all(15),
+                  child: Text('UI Kit'),
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UiKit()),
+                  );
+                },
+              ),
+            ),
             color: Colors.pink[300],
           ),
           Container(
@@ -163,45 +185,65 @@ class _MyHomePageState extends State<MyHomePage> {
       //   ],
       // ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/svg_icon/Home.svg',
-              color: Colors.grey[700],
+              color: Colors.grey[900],
             ),
             label: 'Home',
+            activeIcon: SvgPicture.asset(
+              'assets/svg_icon/Home.svg',
+              color: Colors.amber[800],
+            ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/svg_icon/Discovery.svg',
-              color: Colors.grey[700],
+              color: Colors.grey[900],
             ),
             label: 'Discovery',
+            activeIcon: SvgPicture.asset(
+              'assets/svg_icon/Discovery.svg',
+              color: Colors.amber[800],
+            ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/svg_icon/Search.svg',
-              color: Colors.grey[700],
+              color: Colors.grey[900],
             ),
             label: 'Search',
+            activeIcon: SvgPicture.asset(
+              'assets/svg_icon/Search.svg',
+              color: Colors.amber[800],
+            ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/svg_icon/Activity.svg',
-              color: Colors.grey[700],
+              color: Colors.grey[900],
             ),
             label: 'Activity',
+            activeIcon: SvgPicture.asset(
+              'assets/svg_icon/Activity.svg',
+              color: Colors.amber[800],
+            ),
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/svg_icon/Notification.svg',
-              color: Colors.grey[700],
+              color: Colors.grey[900],
             ),
             label: 'Notification',
+            activeIcon: SvgPicture.asset(
+              'assets/svg_icon/Notification.svg',
+              color: Colors.amber[800],
+            ),
           ),
         ],
-        selectedItemColor: Colors.amber[800],
         type: BottomNavigationBarType.fixed,
+        currentIndex: selectedIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         onTap: onItemTapped,
