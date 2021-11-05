@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/views/adoption.dart';
+import 'package:flutter_application_1/views/pokemon.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryTitle extends StatelessWidget {
   String? categoryName;
   Color? titleColor;
+
   CategoryTitle({
     String? categoryName,
     Color? titleColor,
@@ -31,8 +34,8 @@ class CategoryTitle extends StatelessWidget {
             decoration: BoxDecoration(
               color: titleColor,
               borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20),
-                bottomRight: Radius.circular(20),
+                topRight: Radius.circular(7),
+                bottomRight: Radius.circular(7),
               ),
             ),
             padding: EdgeInsets.fromLTRB(24, 2, 24, 2),
@@ -60,6 +63,14 @@ class CategoryTitle extends StatelessWidget {
                   ),
                 ],
               ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Adoption(),
+                  ),
+                );
+              },
             ),
             margin: EdgeInsets.fromLTRB(9, 0, 29, 0),
           ),

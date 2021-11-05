@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/views/adoption.dart';
+import 'package:flutter_application_1/views/pokemon.dart';
 
 class TopButton extends StatelessWidget {
   String? imageName;
@@ -36,7 +37,9 @@ class TopButton extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Adoption()),
+          MaterialPageRoute(
+            builder: (context) => Pokemon(),
+          ),
         );
       },
     );

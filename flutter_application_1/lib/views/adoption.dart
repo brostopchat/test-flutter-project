@@ -50,13 +50,13 @@ class Adoption extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // AbilitySlider(
+            //   sliderItems: abilityItem,
+            // ),
             AbilitySlider(
               sliderItems: abilityItem,
             ),
             Container(
-              margin: EdgeInsets.only(
-                top: 24,
-              ),
               child: CategoryTitle(
                 categoryName: 'Dog',
                 titleColor: Colors.red[200],

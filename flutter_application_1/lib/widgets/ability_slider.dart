@@ -1,8 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class AbilitySlider extends StatefulWidget {
+class AbilitySlider extends StatelessWidget {
   List<String> sliderItems = [];
 
   AbilitySlider({
@@ -12,99 +11,130 @@ class AbilitySlider extends StatefulWidget {
   }
 
   @override
-  State<AbilitySlider> createState() => _AbilitySliderState();
-}
-
-class _AbilitySliderState extends State<AbilitySlider> {
-  @override
   Widget build(BuildContext context) {
     return Container(
-      child: CarouselSlider(
-        options: CarouselOptions(
-          autoPlay: false,
-          enlargeCenterPage: true,
-          viewportFraction: 1,
-          aspectRatio: 2.0,
-          initialPage: 0,
-          enableInfiniteScroll: false,
-        ),
-        items: widget.sliderItems.map((i) {
-          return Builder(
-            builder: (BuildContext context) {
-              return Container(
-                width: 240,
-                height: 192,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          width: 240,
-                          height: 152,
-                          color: Colors.red[200],
-                        ),
-                        Center(
-                          child: Image.asset(
-                            i,
-                            fit: BoxFit.fitWidth,
+      height: 240,
+      margin: EdgeInsets.only(
+        left: 8,
+      ),
+      child: ListView(
+        // padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+        scrollDirection: Axis.horizontal,
+        children: List.generate(sliderItems.length, (int index) {
+          return Center(
+            child: Container(
+              margin: EdgeInsets.fromLTRB(8, 0, 8, 0),
+              width: 240,
+              height: 192,
+              child: Column(
+                children: [
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        child: Positioned(
+                          child: Container(
+                            height: 192,
+                            decoration: BoxDecoration(
+                              color: Colors.blue[200],
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                    Container(
-                      child: Container(
-                        height: 80,
-                        width: 240,
-                        padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Pet-holic Club',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                SvgPicture.asset(
-                                    'assets/svg_icon/addButton.svg'),
-                              ],
-                            ),
-                            Text(
-                              '150k Members',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: Offset(0, -2),
-                            ),
-                          ],
+                      ),
+                      Center(
+                        child: Container(
+                          child: Image.asset(
+                            'assets/image/dogs1.png',
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          height: 80,
+                          width: 240,
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        'Pet-holic Club',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: SvgPicture.asset(
+                                        'assets/svg_icon/addButton.svg',
+                                      ),
+                                      // padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(16, 4, 0, 16),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                        top: 4,
+                                      ),
+                                      child: Opacity(
+                                        opacity: 0.5,
+                                        child: Text(
+                                          '150k Members',
+                                          style: TextStyle(
+                                            fontFamily: '',
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
+                  bottomLeft: Radius.circular(25),
+                  bottomRight: Radius.circular(25),
                 ),
-              );
-            },
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 7,
+                    offset: Offset(0, 0),
+                  ),
+                ],
+              ),
+              clipBehavior: Clip.antiAlias,
+            ),
           );
-        }).toList(),
+        }),
       ),
     );
   }
