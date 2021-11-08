@@ -61,7 +61,7 @@ class PokemonCard extends StatelessWidget {
                     margin: EdgeInsets.only(
                       bottom: 7,
                     ),
-                    child: Image.asset(pokemonImage.toString()),
+                    child: Image.network(pokemonImage.toString()),
                   ),
                 ),
               ],
@@ -113,6 +113,7 @@ class PokemonCard extends StatelessWidget {
                           GestureDetector(
                             child: SvgPicture.asset(
                               'assets/svg_icon/arrow_up.svg',
+                              color: Colors.amber[800],
                             ),
                           ),
                           Text(
@@ -121,6 +122,9 @@ class PokemonCard extends StatelessWidget {
                           GestureDetector(
                             child: SvgPicture.asset(
                               'assets/svg_icon/arrow_down.svg',
+                              color: count == '00'
+                                  ? Colors.grey
+                                  : Colors.amber[800],
                             ),
                           ),
                         ],

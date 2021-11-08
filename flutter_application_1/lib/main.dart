@@ -3,6 +3,7 @@ import 'package:flutter_application_1/views/ui_kit.dart';
 import 'package:flutter_application_1/widgets/logo_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'network/network.dart';
 import 'widgets/product_widget.dart';
 import 'widgets/top_button.dart';
 import 'widgets/category_title.dart';
@@ -38,6 +39,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool loading = true;
+  List<PokemonModel> pokemonData = [];
+
+  @override
+  void initState() {
+    setState(() {
+      loading = true;
+    });
+    fetch();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void fetch() async {
+    pokemonData = await getHttp(
+      from: '20',
+      count: '2',
+    );
+    loading = false;
+    setState(() {});
+  }
+
   List<String> galeryItem = [
     'assets/image/galery1.jpg',
     'assets/image/galery2.jpg',
@@ -114,24 +138,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ProductWidget(
-                      image: 'assets/image/dog1.png',
-                      name: 'Progy',
-                      sex: 'Female',
-                      subName: 'German Shorth',
-                      backgroundColor: Colors.red[200],
-                    ),
-                    ProductWidget(
-                      image: 'assets/image/cat1.png',
-                      name: 'Mui',
-                      sex: 'Male',
-                      subName: 'German Shorth',
-                      backgroundColor: Colors.blue[100],
-                    ),
-                  ],
+                Container(
+                  margin: EdgeInsets.only(
+                    top: 94,
+                  ),
+                  child: loading ? loadPage() : card(),
                 ),
                 Row(
                   children: [
@@ -247,6 +258,77 @@ class _MyHomePageState extends State<MyHomePage> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         onTap: onItemTapped,
+      ),
+    );
+  }
+
+  Widget card() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: pokemonData
+          .map(
+            (PokemonModel element) => ProductWidget(
+              image: element.iconFront,
+              name: element.name,
+              gender: 'Female',
+              subName: 'German Shorth',
+              backgroundColor: Colors.red[200],
+            ),
+          )
+          .toList()
+          .sublist(0, 2),
+    );
+  }
+
+  Widget loadPage() {
+    return Container(
+      margin: EdgeInsets.only(
+        top: 24,
+      ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            alignment: AlignmentDirectional.center,
+            decoration: BoxDecoration(
+              color: Colors.white70,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0)),
+              width: 300.0,
+              height: 200.0,
+              alignment: AlignmentDirectional.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child: SizedBox(
+                      height: 50.0,
+                      width: 50.0,
+                      child: CircularProgressIndicator(
+                        value: null,
+                        strokeWidth: 7.0,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 25.0),
+                    child: Center(
+                      child: Text(
+                        "loading.. wait...",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

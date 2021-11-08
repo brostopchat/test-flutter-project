@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 class ProductWidget extends StatelessWidget {
   String? image;
   String? name;
-  String? sex;
+  String? gender;
   String? subName;
   Color? backgroundColor;
   ProductWidget({
     String? image,
     String? name,
-    String? sex,
+    String? gender,
     String? subName,
     Color? backgroundColor,
   }) {
     this.image = image;
     this.name = name;
-    this.sex = sex;
+    this.gender = gender;
     this.subName = subName;
     this.backgroundColor = backgroundColor;
   }
@@ -47,7 +47,7 @@ class ProductWidget extends StatelessWidget {
               ),
               Center(
                 child: Container(
-                  child: Image.asset(
+                  child: Image.network(
                     image!,
                   ),
                 ),
@@ -73,7 +73,7 @@ class ProductWidget extends StatelessWidget {
                       ),
                       Container(
                         child: Text(
-                          sex.toString(),
+                          gender.toString(),
                           style: TextStyle(
                             color: Colors.red[500],
                             fontSize: 10,

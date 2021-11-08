@@ -1,74 +1,38 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/network/network.dart';
 import 'package:flutter_application_1/widgets/back_button.dart';
 import 'package:flutter_application_1/widgets/pokemon_card.dart';
 import 'package:flutter_application_1/widgets/top_button.dart';
-import 'package:dio/dio.dart';
 
-void getHttp() async {
-  var dio = Dio();
-  // dio.options
-  //   ..baseUrl = 'http://httpbin.org/'
-  //   ..connectTimeout = 5000 //5s
-  //   ..receiveTimeout = 5000
-  //   ..validateStatus = (int? status) {
-  //     return status != null && status > 0;
-  //   }
-  //   ..headers = {
-  //     HttpHeaders.userAgentHeader: 'dio',
-  //     'common-header': 'xx',
-  //   };
-
-  // // Or you can create dio instance and config it as follow:
-  // //  var dio = Dio(BaseOptions(
-  // //    baseUrl: "http://www.dtworkroom.com/doris/1/2.0.0/",
-  // //    connectTimeout: 5000,
-  // //    receiveTimeout: 5000,
-  // //    headers: {
-  // //      HttpHeaders.userAgentHeader: 'dio',
-  // //      'common-header': 'xx',
-  // //    },
-  // //  ));
-  // dio.interceptors
-  //   ..add(InterceptorsWrapper(
-  //     onRequest: (options, handler) {
-  //       // return handler.resolve( Response(data:"xxx"));
-  //       // return handler.reject( DioError(message: "eh"));
-  //       return handler.next(options);
-  //     },
-  //   ))
-  //   ..add(LogInterceptor(responseBody: false)); //Open log;
-
-  var response = await dio.get('https://pokeapi.co/api/v2/pokemon/1/');
-
-  Map<String, dynamic> TestPokemon = jsonDecode(response.toString());
-  print(TestPokemon['forms'][0]['name']);
-
-  // PokemonModel bulbasaur = PokemonModel(TestPokemon['forms'][0]['name']);
-  // bulbasaur.about();
-  List<PokemonModel> pokemons = [];
-  pokemons.add(PokemonModel.fromNetwork(TestPokemon['forms'][0]));
-  print(pokemons[0].name);
-  // print(response);
+class Pokemon extends StatefulWidget {
+  @override
+  State<Pokemon> createState() => _PokemonState();
 }
 
-class PokemonModel {
-  String name;
-  PokemonModel({
-    required this.name,
-  });
+class _PokemonState extends State<Pokemon> {
+  bool loading = true;
+  List<PokemonModel> pokemonData = [];
 
-  /// data: Map<String, dynamic>
-  factory PokemonModel.fromNetwork(dynamic data) {
-    return PokemonModel(
-      name: data['name'],
-    );
+  @override
+  void initState() {
+    setState(() {
+      loading = true;
+    });
+    fetch();
+    // TODO: implement initState
+    super.initState();
   }
-}
 
-class Pokemon extends StatelessWidget {
+  @override
+  void fetch() async {
+    pokemonData = await getHttp(
+      from: '20',
+      count: '5',
+    );
+    loading = false;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,48 +68,73 @@ class Pokemon extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
+      body: Container(
         padding: EdgeInsets.fromLTRB(24, 0, 26, 29),
-        children: [
-          GestureDetector(
-            child: PokemonCard(
-              pokemonImage: 'assets/image/pokemon_test.png',
-              pokemonName: 'Stella',
-              pokemonSize: '14-oz bag',
-              pokemonPrice: '29.99',
+        child: loading ? loadPage() : body(),
+      ),
+    );
+  }
+
+  Widget body() {
+    return ListView(
+      children: pokemonData
+          .map(
+            (PokemonModel element) => PokemonCard(
+              pokemonImage: element.iconFront,
+              pokemonName: element.name,
+              pokemonSize: '25252',
+              pokemonPrice: '523535',
               count: '01',
             ),
-            onTap: () {
-              getHttp();
-            },
-          ),
-          PokemonCard(
-            pokemonImage: 'assets/image/pokemon_test.png',
-            pokemonName: 'Stella',
-            pokemonSize: '14-oz bag',
-            pokemonPrice: '29.99',
-            count: '01',
-          ),
-          PokemonCard(
-            pokemonImage: 'assets/image/pokemon_test.png',
-            pokemonName: 'Stella',
-            pokemonSize: '14-oz bag',
-            pokemonPrice: '29.99',
-            count: '00',
-          ),
-          PokemonCard(
-            pokemonImage: 'assets/image/pokemon_test.png',
-            pokemonName: 'Stella',
-            pokemonSize: '14-oz bag',
-            pokemonPrice: '29.99',
-            count: '00',
-          ),
-          PokemonCard(
-            pokemonImage: 'assets/image/pokemon_test.png',
-            pokemonName: 'Stella',
-            pokemonSize: '14-oz bag',
-            pokemonPrice: '29.99',
-            count: '00',
+          )
+          .toList(),
+    );
+  }
+
+  Widget loadPage() {
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          Container(
+            alignment: AlignmentDirectional.center,
+            decoration: BoxDecoration(
+              color: Colors.white70,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0)),
+              width: 300.0,
+              height: 200.0,
+              alignment: AlignmentDirectional.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Center(
+                    child: SizedBox(
+                      height: 50.0,
+                      width: 50.0,
+                      child: CircularProgressIndicator(
+                        value: null,
+                        strokeWidth: 7.0,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 25.0),
+                    child: Center(
+                      child: Text(
+                        "loading.. wait...",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
