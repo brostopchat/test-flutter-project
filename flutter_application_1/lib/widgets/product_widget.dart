@@ -26,33 +26,36 @@ class ProductWidget extends StatelessWidget {
       width: 156,
       child: Column(
         children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                child: Positioned(
-                  child: Container(
-                    width: 156,
-                    height: 184,
-                    decoration: BoxDecoration(
-                      color: backgroundColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
+          Container(
+            height: 164,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  child: Positioned(
+                    child: Container(
+                      width: 156,
+                      height: 184,
+                      decoration: BoxDecoration(
+                        color: backgroundColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
                       ),
                     ),
-                  ),
-                  bottom: -20,
-                ),
-              ),
-              Center(
-                child: Container(
-                  child: Image.network(
-                    image!,
+                    bottom: -20,
                   ),
                 ),
-              ),
-            ],
+                Center(
+                  child: Container(
+                    child: Image.network(
+                      image!,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           Container(
             child: Column(
@@ -67,7 +70,7 @@ class ProductWidget extends StatelessWidget {
                           name.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 14,
                           ),
                         ),
                       ),

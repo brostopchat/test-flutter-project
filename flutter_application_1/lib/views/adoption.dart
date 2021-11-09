@@ -93,7 +93,6 @@ class _AdoptionState extends State<Adoption> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 100),
               child: loading ? loadPage() : card(),
             ),
             Container(
@@ -104,7 +103,6 @@ class _AdoptionState extends State<Adoption> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 100),
               child: loading ? loadPage() : card(),
             ),
           ],
